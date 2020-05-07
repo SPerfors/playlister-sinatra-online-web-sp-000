@@ -6,4 +6,8 @@ class Artist < ActiveRecord::Base
   
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6d29d864cfbae92cfc52dabcaf249d00b1146e03
 end
