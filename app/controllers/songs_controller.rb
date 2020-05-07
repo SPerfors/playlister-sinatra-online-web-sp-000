@@ -4,23 +4,31 @@ class SongsController < ApplicationController
         erb :'/songs/index'
     end
   
-    get '/songs/:slug' do
-        @song = Song.find_by_slug(params[:slug])
-        @artist = @song.artist
-        erb :'/songs/show'
-    end
-
     get '/songs/new' do 
         erb :'/songs/new'
     end
 
-    post '/songs' do 
-        puts params
-        @song = Song.create(name: params["Name"], genre_ids: params["genres"])
-        @song.artist = Artist.find_or_create_by(name: params["Artist Name"])
-        @song.save
+    get '/songs/:slug' do 
+        @song = Song.find_by_slug(params[:slug])
+        #binding.pry
+        erb :'/songs/show'
+    end
 
-        redirect '/songs/#{@song.slug}'
+    
+
+    post '/songs' do 
+        
+        puts params
+        
+        @song = Song.create(params[:song])
+        
+        @song.artist = Artist.find_or_create_by(name: params[:artist][:name])
+
+        @song.genre_id = params[:genres]
+        
+        @song.save
+        
+        redirect "/songs/#{@song.slug}"
     end
 
         
